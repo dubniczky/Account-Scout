@@ -54,3 +54,18 @@
 
 - name: Docker Hub
   url: https://hub.docker.com/u/{!!}
+
+- name: Twitter
+  url: https://twitter.com/{!!}
+
+- name: Steam
+  url: https://steamcommunity.com/id/{!!}
+
+- name: TikTok
+  url: https://www.tiktok.com/@{!!}
+
+- name: Twitch
+  url: https://www.twitch.tv/{!!}
+
+- name: PayPal
+  url: https://paypal.me/{!!}
