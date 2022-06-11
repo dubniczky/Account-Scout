@@ -1,3 +1,5 @@
+import os
+
 from requests import Session
 from yaml import safe_load
 
@@ -6,7 +8,7 @@ USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 # Load pages config
 pages: None|dict = None
 try:
-    with open("pages.yml") as f:
+    with open(os.path.join(os.path.dirname(__file__), 'pages.yml')) as f:
         pages = safe_load( f.read() )
 except:
     print('Error, coult not read page configuration.')

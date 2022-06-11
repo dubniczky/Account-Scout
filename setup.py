@@ -19,6 +19,7 @@ setup(
         'pyyaml',
         'requests',
     ],
+    include_package_data=True,
     entry_points={
         'console_scripts': [
             'accscout = accscout.__main__:main'
