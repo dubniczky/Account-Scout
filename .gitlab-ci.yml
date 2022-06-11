@@ -7,10 +7,7 @@ deploy:
   stage: deploy
   only:
     - tags
-  variables:
-    TWINE_USERNAME: __token__
-    TWINE_PASSWORD: ${PYPI_ACCESS_TOKEN}
   script:
     - pip install twine
     - python setup.py sdist
-    - python -m twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
+    - python -m twine upload dist/*
