@@ -1,8 +1,11 @@
 from setuptools import setup, find_packages
+from os import getenv
+
+version = getenv('CI_COMMIT_TAG', 'v0.1')[1,]
 
 setup(
     name = "accscout",
-    version = "1.0",
+    version = version,
     author = "Richard Antal Nagy",
     author_email="nagy.richard.antal@gmail.com",
     description="Search for certain user accounts on popular websites on the internet",
