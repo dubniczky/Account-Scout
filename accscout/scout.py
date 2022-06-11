@@ -1,5 +1,6 @@
 import os
 
+from time import process_time
 from requests import Session
 from yaml import safe_load, safe_dump
 from threading import Thread
@@ -26,15 +27,21 @@ def printc(color: tuple[int,int,int], text: str) -> None:
     print( f"\033[38;2;{color[0]};{color[1]};{color[2]}m{text}\033[0m" )
 
 def scout_page(session, username, page_name, url):
+
+    start = process_time()
     url = url.replace('{!!}', username)
     res = session.get( url )
+    elapsed = int((process_time() - start) * 1000.)
 
+    # Default color: yellow
+    color = (255, 211, 0)
     if (res.status_code == 200): # Success: green
-        printc( (0, 255, 0),  f'[ {res.status_code} ] {page_name}: {url}' )
+        color = (38, 182, 82)
     elif (res.status_code == 404): # Fail: red
-        printc( (255, 0, 0),  f'[ {res.status_code} ] {page_name}: {url}' )
-    else: # Other: yellow
-        printc( (255, 190, 0),  f'[ {res.status_code} ] {page_name}: {url}' )
+        color = (250, 41, 41)
+
+    # Print result
+    printc( color,  f'[ {res.status_code} ] ({elapsed}ms) {page_name}: {url}' )
 
 def scout(username):
     session = Session()
