@@ -4,7 +4,7 @@ import sys
 from accscout import scout
 
 def main():
-    if len(sys.argv < 2):
+    if len(sys.argv) < 2:
         print('accscout [USERNAME]')
         exit(1)
     
