@@ -6,7 +6,6 @@ stages:
 deploy:
   stage: deploy
   only:
-    - main
     - tags
   variables:
     TWINE_USERNAME: __token__
