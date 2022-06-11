@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 
-from accountscout import scout
+from accscout import scout
 
 def main():
     username = sys.argv[1]
