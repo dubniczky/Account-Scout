@@ -7,5 +7,50 @@
 - name: GitLab
   url: https://gitlab.com/{!!}
 
+- name: BitBucket
+  url: https://bitbucket.org/{!!}
+
 - name: YouTube
   url: https://www.youtube.com/channel/{!!}
+
+- name: Instagram
+  url: https://instagram.com/{!!}
+
+- name: Medium
+  url: https://medium.com/@{!!}
+
+- name: Pastebin
+  url: https://pastebin.com/u/@{!!}
+
+- name: Quora
+  url: https://quora.com/profile/{!!}
+
+- name: Flickr
+  url: https://flickr.com/people/{!!}
+
+- name: WordPress
+  url: https://{!!}.wordpress.com
+
+- name: Pinterest
+  url: https://pinterest.com/{!!}
+
+- name: VK
+  url: https://vk.com/{!!}
+
+- name: Quora
+  url: https://en.wikipedia.org/wiki/User:{!!}
+
+- name: about.me
+  url: https://about.me/{!!}
+
+- name: Vimeo
+  url: https://vimeo.com/{!!}
+
+- name: Patreon
+  url: https://patreon.com/{!!}
+
+- name: Reddit
+  url: https://www.reddit.com/user/{!!}/
+
+- name: Docker Hub
+  url: https://hub.docker.com/u/{!!}
