@@ -35,6 +35,10 @@ After installation, simply use the command with the username you're searching fo
 accscout [USERNAME]
 ```
 
+## Example
+
+![demo run of the app](/assets/demo.png)
+
 ## License
 
 Standard MIT license ([view](/LICENSE))
