@@ -1,6 +1,8 @@
 from requests import Session
 from yaml import safe_load
 
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.115 Safari/537.36'
+
 # Load pages config
 pages: None|dict = None
 try:
@@ -14,6 +16,9 @@ def printc(color: tuple[int,int,int], text: str) -> None:
 
 def scout(username):
     session = Session()
+    session.headers.update({
+        'User-Agent': USER_AGENT
+    })
     success = 0
     for page in pages:
         name: str = page['name']
