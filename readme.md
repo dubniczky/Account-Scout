@@ -15,8 +15,8 @@ pip install accscout
 Download repository
 
 ```bash
-git clone https://gitlab.com/richardnagy/security/accountscout
-cd accountscout
+git clone https://gitlab.com/richardnagy/security/accscout
+cd accscout
 ```
 
 Run setup script
@@ -25,6 +25,14 @@ Run setup script
 
 ```bash
 python setup.py install
+```
+
+## Usage
+
+After installation, simply use the command with the username you're searching for
+
+```bash
+accscout [USERNAME]
 ```
 
 ## License
