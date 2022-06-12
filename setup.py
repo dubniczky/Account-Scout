@@ -2,6 +2,16 @@ from setuptools import setup, find_packages
 from os import getenv
 
 version = getenv('CI_COMMIT_TAG', 'v0.1')[1:]
+# Try to fall back to version file
+if version == '0.1':
+    try:
+        with open('version.txt', 'r') as f:
+            version= f.read()
+    except:
+        pass
+else:
+    with open('version.txt', 'w') as f:
+            f.write(version)
 
 setup(
     name = "accscout",
