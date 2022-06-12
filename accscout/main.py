@@ -5,6 +5,7 @@ from time import process_time
 from requests import Session
 from yaml import safe_load, safe_dump
 from threading import Thread
+import asyncio
 
 
 # Load pages config
@@ -31,8 +32,8 @@ def printc(color: tuple[int,int,int], text: str) -> None:
     print( f"\033[38;2;{color[0]};{color[1]};{color[2]}m{text}\033[0m" )
 
 
-def scout_page(session, username, page_name, url):
-
+async def scout_page(session, username, page_name, url):
+    print('started')
     start = process_time()
     url = url.replace('{!!}', username)
     res = session.get( url )
@@ -49,7 +50,7 @@ def scout_page(session, username, page_name, url):
     printc( color,  f'[ {res.status_code} ] ({elapsed}ms) {page_name}: {url}' )
 
 
-def scout(usernames):
+async def scout(usernames):
     session = Session()
 
     # Print general info
@@ -65,21 +66,18 @@ def scout(usernames):
     session.headers.update(headers)
 
     # Start threads for each request
-    threads = []
+    tasks : list(asyncio.Task) = []
     for user in usernames:
         for page in pages:
             page_name: str = page['name']
             url: str = page['url'].replace('{!!}', user)
-            t = Thread(target=scout_page, args=(session, user, page_name, url))
-            threads.append(t)
-            t.start()
+            tasks.append( asyncio.create_task( scout_page(session, user, page_name, url) ) )
 
-    # Wait for finish
-    for t in threads:
-        t.join()
+    for t in tasks:
+        await t
 
 
-def main():
+async def main():
     start_time = process_time()
     if len(sys.argv) < 2:
         print('Usage: accscout [USERNAME]... ')
@@ -87,7 +85,7 @@ def main():
         exit(1)
     
     usernames = sys.argv[1:]
-    scout(usernames)
+    await scout(usernames)
 
     end_time = process_time()
     delta_time = end_time - start_time
@@ -96,4 +94,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())
