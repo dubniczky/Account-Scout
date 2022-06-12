@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import os
-from time import process_time
+from time import perf_counter, process_time
 from requests import Session
 from yaml import safe_load, safe_dump
 from concurrent.futures import ThreadPoolExecutor
@@ -32,10 +32,10 @@ def printc(color: tuple[int,int,int], text: str) -> None:
 
 
 def scout_page(session, username, page_name, url):
-    start = process_time()
+    start = perf_counter()
     url = url.replace('{!!}', username)
     res = session.get( url )
-    elapsed = int((process_time() - start) * 1000.)
+    elapsed = int((perf_counter() - start) * 1000.)
 
     # Default color: yellow
     color = (255, 211, 0)
@@ -74,7 +74,7 @@ def scout(usernames):
 
 
 def main():
-    start_time = process_time()
+    start_time = perf_counter()
     if len(sys.argv) < 2:
         print('Usage: accscout [USERNAME]... ')
         print('Scout users on popular websites.')
@@ -83,7 +83,7 @@ def main():
     usernames = sys.argv[1:]
     scout(usernames)
 
-    end_time = process_time()
+    end_time = perf_counter()
     delta_time = end_time - start_time
     print('========================================')
     print(f'Completed {len(pages) * len(usernames)} requests in {delta_time}s')
