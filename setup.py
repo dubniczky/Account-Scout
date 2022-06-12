@@ -38,7 +38,7 @@ setup(
     include_package_data=True,
     entry_points={
         'console_scripts': [
-            'accscout = accscout.__main__:main'
+            'accscout = accscout.main:main'
         ]
     },
     python_requires='>=3.8',

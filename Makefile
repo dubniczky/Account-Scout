@@ -4,7 +4,7 @@ default_user := dubniczki
 # Run with a test user
 .PHONY: run
 run:
-	$(py) accscout/ dubniczki
+	cd accscout && $(py) main.py dubniczki
 
 # Install package
 .PHONY: install

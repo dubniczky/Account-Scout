@@ -1,5 +1,6 @@
+#!/usr/bin/env python3
+import sys
 import os
-
 from time import process_time
 from requests import Session
 from yaml import safe_load, safe_dump
@@ -76,3 +77,16 @@ def scout(username):
     delta_time = end_time - start_time
     print('========================================')
     print(f'Completed {len(pages)} requests in {delta_time}s')
+
+
+def main():
+    if len(sys.argv) < 2:
+        print('accscout [USERNAME]')
+        exit(1)
+    
+    username = sys.argv[1]
+    scout(username)
+
+
+if __name__ == '__main__':
+    main()
