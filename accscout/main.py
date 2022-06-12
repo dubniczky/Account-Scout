@@ -4,8 +4,7 @@ import os
 from time import process_time
 from requests import Session
 from yaml import safe_load, safe_dump
-from threading import Thread
-import asyncio
+from concurrent.futures import ThreadPoolExecutor
 
 
 # Load pages config
@@ -32,8 +31,7 @@ def printc(color: tuple[int,int,int], text: str) -> None:
     print( f"\033[38;2;{color[0]};{color[1]};{color[2]}m{text}\033[0m" )
 
 
-async def scout_page(session, username, page_name, url):
-    print('started')
+def scout_page(session, username, page_name, url):
     start = process_time()
     url = url.replace('{!!}', username)
     res = session.get( url )
@@ -50,7 +48,7 @@ async def scout_page(session, username, page_name, url):
     printc( color,  f'[ {res.status_code} ] ({elapsed}ms) {page_name}: {url}' )
 
 
-async def scout(usernames):
+def scout(usernames):
     session = Session()
 
     # Print general info
@@ -66,18 +64,16 @@ async def scout(usernames):
     session.headers.update(headers)
 
     # Start threads for each request
-    tasks : list(asyncio.Task) = []
-    for user in usernames:
-        for page in pages:
-            page_name: str = page['name']
-            url: str = page['url'].replace('{!!}', user)
-            tasks.append( asyncio.create_task( scout_page(session, user, page_name, url) ) )
-
-    for t in tasks:
-        await t
+    threads = []
+    with ThreadPoolExecutor(max_workers=min(32, os.cpu_count() * 5)) as executor:
+        for user in usernames:
+            for page in pages:
+                page_name: str = page['name']
+                url: str = page['url'].replace('{!!}', user)
+                threads.append( executor.submit(scout_page, session, user, page_name, url) )
 
 
-async def main():
+def main():
     start_time = process_time()
     if len(sys.argv) < 2:
         print('Usage: accscout [USERNAME]... ')
@@ -85,7 +81,7 @@ async def main():
         exit(1)
     
     usernames = sys.argv[1:]
-    await scout(usernames)
+    scout(usernames)
 
     end_time = process_time()
     delta_time = end_time - start_time
@@ -94,5 +90,4 @@ async def main():
 
 
 if __name__ == '__main__':
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
+    main()
