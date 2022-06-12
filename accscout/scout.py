@@ -60,6 +60,7 @@ def scout(username):
 
     # Start threads for each request
     threads = []
+    start_time = process_time()
     for page in pages:
         page_name: str = page['name']
         url: str = page['url'].replace('{!!}', username)
@@ -70,3 +71,8 @@ def scout(username):
     # Wait for finish
     for t in threads:
         t.join()
+
+    end_time = process_time()
+    delta_time = end_time - start_time
+    print('========================================')
+    print(f'Completed {len(pages)} requests in {delta_time}s')
