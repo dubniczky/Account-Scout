@@ -13,6 +13,10 @@ else:
     with open('version.txt', 'w') as f:
             f.write(version)
 
+description = None
+with open('readme.md', 'r') as f:
+    description = f.read()
+
 setup(
     name = "accscout",
     version = version,
@@ -42,4 +46,6 @@ setup(
         ]
     },
     python_requires='>=3.8',
+    long_description_content_type='text/markdown',
+    long_description=description
 )
