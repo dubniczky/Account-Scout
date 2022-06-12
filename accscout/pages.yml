@@ -37,7 +37,7 @@
 - name: VK
   url: https://vk.com/{!!}
 
-- name: Quora
+- name: Wikipedia
   url: https://en.wikipedia.org/wiki/User:{!!}
 
 - name: about.me
