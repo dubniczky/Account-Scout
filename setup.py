@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 from os import getenv
 
-version = getenv('CI_COMMIT_TAG', 'v0.1')[1:]
+version = getenv('GITHUB_REF', 'v0.1')[1:]
 # Try to fall back to version file
 if version == '0.1':
     try:
